@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
+class PaginaRegistre extends StatelessWidget {
+  const PaginaRegistre({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Column(
+        children: [
+          Icon(Icons.group_work_outlined), 
+          Text("Conectar app")],
+          
+      ),
+    );
   }
 }
