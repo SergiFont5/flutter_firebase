@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/componentes/boton_auth.dart';
 import 'package:flutter_firebase/componentes/textfield_autenticacion.dart';
 import 'package:flutter_firebase/componentes/titulo_artistico.dart';
 import 'package:flutter_firebase/utils/colores_app.dart';
@@ -40,7 +41,9 @@ class PaginaRegistre extends StatelessWidget {
                       ),
                       TituloArtistico(textoTitulo: "Mi libro..."),
                       SizedBox(height: 20,),
-                      
+                      // formulario
+                      /**********************/
+
                       // EMAIL
                       TextfieldAutenticacion(controladorTexto: TextEditingController(), hintText: "Insert Email..."),
                       SizedBox(height: 20,),
@@ -52,11 +55,9 @@ class PaginaRegistre extends StatelessWidget {
                       // CONFIRM PASSWORD
                       TextfieldAutenticacion(controladorTexto: TextEditingController(), hintText: "Insert Password again...", isPassword: true,),
                   
-                      // formulario
-                      /**********************/
-                      // email
-                      // password
-                      // password confirm
+                      SizedBox(height: 20,),
+                      
+                      BotonAuth(textoBoton: "Registrar",),
                       // boton registrar
                       // preguntar si ya tiene cuenta
                       //
