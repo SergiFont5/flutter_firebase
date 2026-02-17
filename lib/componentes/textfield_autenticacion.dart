@@ -9,14 +9,17 @@ class TextfieldAutenticacion extends StatefulWidget {
   final String hintText;
   final FocusNode? focusNode;
 
+  final String? Function(String?)? validacion;
+  // final Function() f; devuelve void
+
   const TextfieldAutenticacion({
     super.key,
     required this.controladorTexto,
     this.ocultarTexto = true,
     this.focusNode,
     required this.hintText,
-    this.isPassword = false
-
+    this.isPassword = false,
+    this.validacion,
     });
 
   @override
@@ -35,7 +38,10 @@ class _TextfieldAutenticacionState extends State<TextfieldAutenticacion> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+
+      validator: widget.validacion,
+
       obscureText: _ocultarTexto && widget.isPassword,
       obscuringCharacter: "*",
       controller: widget.controladorTexto,
