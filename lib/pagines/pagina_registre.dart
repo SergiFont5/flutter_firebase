@@ -23,9 +23,41 @@ class _PaginaRegistreState extends State<PaginaRegistre> {
   final GlobalKey<FormState> _llaveFormulario = GlobalKey<FormState>();
 
   String? _validarEmail(String? valorEmail) {
+
+    final RegExp emailRegex = RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"
+    );
+
     if (valorEmail == null || valorEmail.trim().isEmpty) {
       return "El email es necesario";
     }
+
+    if (!emailRegex.hasMatch(valorEmail.trim())) {
+      return "Revisa el formato, melón";
+    }
+
+    return null;
+  }
+
+  String? _validarPassword(String? valorPassword) {
+
+    if (valorPassword == null || valorPassword.trim().isEmpty) {
+      return "El password es necesario";
+    }
+
+    if (valorPassword.length < 6) {
+      return "Mínimo 6 caracteres en el password";
+    }
+
+    return null;
+  }
+
+  String? _validarConfPassword(String? valorPassword) {
+
+    if (valorPassword != _passwordController.text) {
+      return "Los passwords no coinciden";
+    }
+
     return null;
   }
 
@@ -86,11 +118,21 @@ class _PaginaRegistreState extends State<PaginaRegistre> {
                         SizedBox(height: 20,),
                     
                         // PASSWORD
-                        TextfieldAutenticacion(controladorTexto: _passwordController, hintText: "Insert Password...", isPassword: true,),
+                        TextfieldAutenticacion(
+                          controladorTexto: _passwordController, 
+                          hintText: "Insert Password...", 
+                          isPassword: true,
+                          validacion: _validarPassword,
+                        ),
                         SizedBox(height: 20,),
                     
                         // CONFIRM PASSWORD
-                        TextfieldAutenticacion(controladorTexto: _confirmPasswordController, hintText: "Insert Password again...", isPassword: true,),
+                        TextfieldAutenticacion(
+                          controladorTexto: _confirmPasswordController, 
+                          hintText: "Insert Password again...", 
+                          isPassword: true,
+                          validacion: _validarConfPassword,
+                          ),
                     
                         SizedBox(height: 20,),
                         

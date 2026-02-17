@@ -79,6 +79,30 @@ class _TextfieldAutenticacionState extends State<TextfieldAutenticacion> {
           borderSide: BorderSide(color: ColoresApp.colorPrimarioIntenso, width: 3)
         ),
 
+        // estilo mensajes de error
+        // #############################
+        //texto error
+        errorStyle: TextStyle(
+          color: ColoresApp.colorResalto,
+          fontWeight: FontWeight.bold,
+          fontSize: 22,
+          shadows: [
+            Shadow(blurRadius: 1, color: ColoresApp.colorSecundarioIntenso)
+          ]
+        ),
+
+        //error border sin focus
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(50),
+          borderSide: BorderSide(color: ColoresApp.colorResalto, width: 1)
+        ),
+
+        // error border con focus
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(50),
+          borderSide: BorderSide(color: ColoresApp.colorResalto, width: 3)
+        ),
+
         suffixIcon: Padding(padding: const EdgeInsets.only(right: 4),
         child: widget.isPassword ? 
           IconButton(onPressed: () {
