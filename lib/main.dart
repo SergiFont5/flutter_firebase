@@ -1,4 +1,6 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/firebase_options.dart';
 import 'package:flutter_firebase/pagines/pagina_registre.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -33,7 +35,20 @@ import 'package:google_fonts/google_fonts.dart';
  
  */
 
-void main() {
+void main() async {
+
+  // asegura que firebase esté inicializado
+  WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    debugPrint("Firebase iniciado");
+  } catch (e) {
+    debugPrint("Error al iniciar firebase: $e");
+  }
+
   runApp(const MainApp());
 }
 

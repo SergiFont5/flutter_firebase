@@ -5,6 +5,7 @@ import 'package:flutter_firebase/componentes/boton_auth.dart';
 import 'package:flutter_firebase/componentes/textfield_autenticacion.dart';
 import 'package:flutter_firebase/componentes/texto_normal.dart';
 import 'package:flutter_firebase/componentes/titulo_artistico.dart';
+import 'package:flutter_firebase/servicios/servicio_auth.dart';
 import 'package:flutter_firebase/utils/colores_app.dart';
 import 'package:flutter_firebase/utils/variables.dart';
 
@@ -61,16 +62,56 @@ class _PaginaRegistreState extends State<PaginaRegistre> {
     return null;
   }
 
-  void _handleLogin() {
+  void _handleRegistro() async {
     if (_llaveFormulario.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Credenciales correctas"),),
       );
+
+      await _doRegistro();
+
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Error"),),
       );
     }
+  }
+
+  Future<void> _doRegistro() async {
+
+    String? error = await ServicioAuth().registrarUsuarioConEmailPassword(
+      _emailController.text.trim(), 
+      _passwordController.text.trim()
+      );
+
+      if (error != null) {
+        await showDialog(
+          context: context, 
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: ColoresApp.colorApoyoIntenso,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: ColoresApp.colorPrimarioIntenso, 
+                  width: 2
+                  ),
+                borderRadius: BorderRadiusGeometry.circular(10)
+              ),
+              content: TextoNormal(
+                contenidoTexto: error, 
+                colorTexto: ColoresApp.colorPrimarioIntenso,
+                ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context), 
+                  child: Text("ok"),
+                  )
+              ],
+            );
+          },
+          );
+      }
+
   }
 
   @override
@@ -137,7 +178,7 @@ class _PaginaRegistreState extends State<PaginaRegistre> {
                         SizedBox(height: 20,),
                         
                         // boton registrar
-                        BotonAuth(textoBoton: "Registrar", accionBoton: _handleLogin,),
+                        BotonAuth(textoBoton: "Registrar", accionBoton: _handleRegistro,),
                     
                         SizedBox(height: 20,),
                         
