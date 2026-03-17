@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/componentes/boton_auth.dart';
 import 'package:flutter_firebase/componentes/textfield_autenticacion.dart';
+import 'package:flutter_firebase/componentes/texto_enlace.dart';
 import 'package:flutter_firebase/componentes/texto_normal.dart';
 import 'package:flutter_firebase/componentes/titulo_artistico.dart';
 import 'package:flutter_firebase/servicios/servicio_auth.dart';
@@ -10,7 +11,9 @@ import 'package:flutter_firebase/utils/colores_app.dart';
 import 'package:flutter_firebase/utils/variables.dart';
 
 class PaginaRegistre extends StatefulWidget {
-  const PaginaRegistre({super.key});
+
+  final Function()? intercambiarALogin;
+  const PaginaRegistre({super.key, required this.intercambiarALogin});
 
   @override
   State<PaginaRegistre> createState() => _PaginaRegistreState();
@@ -187,7 +190,7 @@ class _PaginaRegistreState extends State<PaginaRegistre> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             TextoNormal(contenidoTexto: "¿Ya tienes cuenta?",),
-                            TextoNormal(contenidoTexto: "Haz login", colorTexto: ColoresApp.colorResalto,),
+                            TextoEnlace(contenidoTexto: "Haz login", accionEnlace: widget.intercambiarALogin,),
                           ],
                         )
                         //

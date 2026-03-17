@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/firebase_options.dart';
-import 'package:flutter_firebase/pagines/pagina_registre.dart';
+import 'package:flutter_firebase/pagines/portal_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
@@ -65,7 +65,7 @@ class MainApp extends StatelessWidget {
         ).apply(fontSizeFactor: 1.15),
       ),
       title: "si",
-      home: const PaginaRegistre(),
+      home: const PortalAuth(),
         );
   }
 }

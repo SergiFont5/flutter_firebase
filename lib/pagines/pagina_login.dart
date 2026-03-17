@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/componentes/boton_auth.dart';
 import 'package:flutter_firebase/componentes/textfield_autenticacion.dart';
+import 'package:flutter_firebase/componentes/texto_enlace.dart';
 import 'package:flutter_firebase/componentes/texto_normal.dart';
 import 'package:flutter_firebase/componentes/titulo_artistico.dart';
 import 'package:flutter_firebase/servicios/servicio_auth.dart';
@@ -10,7 +11,10 @@ import 'package:flutter_firebase/utils/colores_app.dart';
 import 'package:flutter_firebase/utils/variables.dart';
 
 class PaginaLogin extends StatefulWidget {
-  const PaginaLogin({super.key});
+
+  final Function()? intercambiarARegistro;
+
+  const PaginaLogin({super.key, required this.intercambiarARegistro});
 
   @override
   State<PaginaLogin> createState() => _PaginaLoginState();
@@ -20,7 +24,7 @@ class _PaginaLoginState extends State<PaginaLogin> {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+
   final GlobalKey<FormState> _llaveFormulario = GlobalKey<FormState>();
 
   String? _validarEmail(String? valorEmail) {
@@ -159,7 +163,7 @@ class _PaginaLoginState extends State<PaginaLogin> {
                         SizedBox(height: 20,),
                         
                         // boton registrar
-                        BotonAuth(textoBoton: "Registrar", accionBoton: _handleLogin,),
+                        BotonAuth(textoBoton: "Login", accionBoton: _handleLogin,),
                     
                         SizedBox(height: 20,),
                         
@@ -168,7 +172,7 @@ class _PaginaLoginState extends State<PaginaLogin> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             TextoNormal(contenidoTexto: "¿Ya tienes cuenta?",),
-                            TextoNormal(contenidoTexto: "Haz login", colorTexto: ColoresApp.colorResalto,),
+                            TextoEnlace(contenidoTexto: "Registrate", accionEnlace: widget.intercambiarARegistro,),
                           ],
                         )
                         //
