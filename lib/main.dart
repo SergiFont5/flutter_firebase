@@ -2,7 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/firebase_options.dart';
 import 'package:flutter_firebase/pagines/portal_auth.dart';
+import 'package:flutter_firebase/servicios/servicio_notificaciones.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+// Instancia global accesible desde cualquier widget
+final ServicioNotificaciones servicioNotificaciones = ServicioNotificaciones();
 
 
 /*
@@ -45,6 +49,7 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
     debugPrint("Firebase iniciado");
+    await servicioNotificaciones.init();
   } catch (e) {
     debugPrint("Error al iniciar firebase: $e");
   }
