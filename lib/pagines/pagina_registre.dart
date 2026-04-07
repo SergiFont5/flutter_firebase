@@ -190,7 +190,7 @@ class _PaginaRegistreState extends State<PaginaRegistre> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             TextoNormal(contenidoTexto: "¿Ya tienes cuenta?",),
-                            TextoEnlace(contenidoTexto: "Haz login", accionEnlace: widget.intercambiarALogin,),
+                            TextoEnlace(contenidoTexto: " Haz login", accionEnlace: widget.intercambiarALogin,),
                           ],
                         )
                         //

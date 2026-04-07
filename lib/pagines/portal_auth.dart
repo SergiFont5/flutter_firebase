@@ -17,7 +17,7 @@ class PortalAuth extends StatelessWidget {
           }
 
           if (snapshot.hasError) {
-            return Center(child: Text("ERROR"));
+            return Center(child: Text("ERROR en el snapshot"));
           }
 
           if (snapshot.hasData) {

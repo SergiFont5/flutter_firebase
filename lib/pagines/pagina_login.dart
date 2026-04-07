@@ -57,6 +57,76 @@ class _PaginaLoginState extends State<PaginaLogin> {
     return null;
   }
 
+  void _mostrarDialogRecuperacion() {
+    final TextEditingController emailRecuperacionController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: ColoresApp.colorApoyoIntenso,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: ColoresApp.colorPrimarioIntenso, width: 2),
+            borderRadius: BorderRadiusGeometry.circular(10),
+          ),
+          title: TextoNormal(
+            contenidoTexto: "Recuperar contraseña",
+            colorTexto: ColoresApp.colorSecundario,
+          ),
+          content: TextField(
+            controller: emailRecuperacionController,
+            style: TextStyle(color: ColoresApp.colorSecundario),
+            cursorColor: ColoresApp.colorSecundario,
+            decoration: InputDecoration(
+              hintText: "Tu email...",
+              hintStyle: TextStyle(color: ColoresApp.colorSecundario, fontStyle: FontStyle.italic),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: ColoresApp.colorPrimario),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: ColoresApp.colorPrimarioIntenso, width: 2),
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text("Cancelar", style: TextStyle(color: ColoresApp.colorSecundario)),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.pop(context);
+                final error = await ServicioAuth().recuperarPassword(emailRecuperacionController.text);
+                if (!mounted) return;
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    backgroundColor: ColoresApp.colorApoyoIntenso,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: ColoresApp.colorPrimarioIntenso, width: 2),
+                      borderRadius: BorderRadiusGeometry.circular(10),
+                    ),
+                    content: TextoNormal(
+                      contenidoTexto: error ?? "Revisa tu email para restablecer la contraseña",
+                      colorTexto: error != null ? ColoresApp.colorResalto : ColoresApp.colorPrimarioIntenso,
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text("Ok"),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              child: Text("Enviar", style: TextStyle(color: ColoresApp.colorPrimarioIntenso, fontWeight: FontWeight.bold)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _handleLogin() async {
     if (_llaveFormulario.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -164,9 +234,17 @@ class _PaginaLoginState extends State<PaginaLogin> {
                         
                         // boton registrar
                         BotonAuth(textoBoton: "Login", accionBoton: _handleLogin,),
-                    
-                        SizedBox(height: 20,),
-                        
+
+                        SizedBox(height: 10,),
+
+                        // recuperar contraseña
+                        TextoEnlace(
+                          contenidoTexto: "¿Olvidaste tu contraseña?",
+                          accionEnlace: _mostrarDialogRecuperacion,
+                        ),
+
+                        SizedBox(height: 10,),
+
                         // preguntar si ya tiene cuenta
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

@@ -46,8 +46,24 @@ class ServicioAuth {
     }
   }
 
-  Future <void> logout() async {
+  Future<void> logout() async {
     await _auth.signOut();
+  }
+
+  Future<String?> recuperarPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email.trim());
+      return null;
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case "invalid-email":
+          return "El email no es válido";
+        case "user-not-found":
+          return "No existe una cuenta con ese email";
+        default:
+          return "Error: ${e.message}";
+      }
+    }
   }
 
   Future<String?> login(String email, String password) async {
