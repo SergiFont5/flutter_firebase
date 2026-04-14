@@ -39,7 +39,6 @@ class _PaginaInicioState extends State<PaginaInicio> {
 
     showDialog(
       context: context,
-      barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
           backgroundColor: ColoresApp.colorApoyoIntenso,
